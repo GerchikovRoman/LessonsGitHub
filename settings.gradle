@@ -14,3 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "LessonsGitHub"
 include ':app'
+include ':domain'
+include ':data'
