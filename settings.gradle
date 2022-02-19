@@ -16,3 +16,4 @@ rootProject.name = "LessonsGitHub"
 include ':app'
 include ':domain'
 include ':data'
+include ':providers'

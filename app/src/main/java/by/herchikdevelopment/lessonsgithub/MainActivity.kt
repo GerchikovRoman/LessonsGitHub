@@ -1,17 +1,18 @@
 package by.herchikdevelopment.lessonsgithub
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import by.herchikdevelopment.domain.models.ShopItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import by.herchikdevelopment.lessonsgithub.viewModels.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-    }
-
-    fun showList(list: List<ShopItem>) {
-      //  val view = LayoutInflater.from(this).inflate(R.layout.shopList,this)
+        val mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        mainViewModel.shopItemList.observe(this) {
+            val list = it
+        }
+        mainViewModel.getShopItemList()
     }
 }

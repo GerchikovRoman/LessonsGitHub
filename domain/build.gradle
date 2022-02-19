@@ -8,5 +8,5 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 dependencies {
-    implementation "io.reactivex.rxjava3:rxjava:3.0.0"
+    api ("io.reactivex.rxjava3:rxjava:3.0.0")
 }
