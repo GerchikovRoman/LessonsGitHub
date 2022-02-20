@@ -1,44 +1,69 @@
 package by.herchikdevelopment.lessonsgithub
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import by.herchikdevelopment.domain.models.ShopItem
-import com.squareup.picasso.Picasso
 
-class ShopItemRecyclerViewAdapter(private var listShopItem: List<ShopItem>) :
+class ShopItemRecyclerViewAdapter(
+    private var listShopItem: List<ShopItem>,
+    private val onClick: OnClick
+) :
     RecyclerView.Adapter<ShopItemRecyclerViewAdapter.ShopItemViewHolder>() {
-    class ShopItemViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     fun setListShopItems(listShopItem: List<ShopItem>) {
         this.listShopItem = listShopItem
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopItemViewHolder =
-        ShopItemViewHolder(
+    private var position: Int = 1
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopItemViewHolder {
+        Log.i("HOLDER_INFO", "$position")
+        position++
+        return ShopItemViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.shop_item_recycler_view, parent, false)
         )
+    }
 
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
-        val tvId = holder.itemView.findViewById<TextView>(R.id.tvId)
-        val nameShopItem = holder.itemView.findViewById<TextView>(R.id.tvShopName)
-        val shopItemImage = holder.itemView.findViewById<ImageView>(R.id.imageViewShopItem)
-
         for (list in listShopItem) {
-            tvId.text = list.id.toString()
-            nameShopItem.text = list.name
-            Picasso.with(holder.itemView.context)
-                .load("")
-                .error(R.drawable.ic_launcher_background)
-                .into(shopItemImage)
+            holder.shopItemName.text = listShopItem[position].name
+            holder.shopItemId.text = listShopItem[position].id.toString()
+            holder.shopItemImage.setImageResource(R.drawable.ic_apple_juice_drink_fruit_icon)
+//            Picasso.with(holder.itemView.context)
+//                .load("dsa")
+//                .error(R.drawable.ic_launcher_background)
+//                .into(holder.shopItemImage)
+        }
+        holder.itemView.setOnLongClickListener {
+            onClick.onClick()
+            true
+        }
+        holder.itemView.setOnClickListener {
+            Toast.makeText(
+                holder.itemView.context,
+                "Click item $position",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
     override fun getItemCount(): Int =
         listShopItem.size
 
+    class ShopItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val shopItemId = view.findViewById<TextView>(R.id.tvId)
+        val shopItemName = view.findViewById<TextView>(R.id.tvShopName)
+        val shopItemImage = view.findViewById<ImageView>(R.id.imageViewShopItem)
+    }
+
+    interface OnClick {
+        fun onClick()
+        fun onLongClick()
+    }
 }

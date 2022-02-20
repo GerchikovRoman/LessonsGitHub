@@ -22,7 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:padding="2dp"
         android:text="ShopName"
+        android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/imageViewShopItem"
         app:layout_constraintTop_toBottomOf="@+id/tvId" />
 
@@ -32,7 +34,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:padding="2dp"
         android:text="Id"
+        android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/imageViewShopItem"
         app:layout_constraintTop_toTopOf="@+id/imageViewShopItem" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:background="#FFFFFF"
+        app:layout_constraintStart_toStartOf="@+id/imageViewShopItem"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
